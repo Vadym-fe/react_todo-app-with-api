@@ -109,7 +109,7 @@ export const TodoItem: React.FC<Props> = ({
             value={editTitle}
             ref={focusRef}
             type="text"
-            className="todoapp__new-todo"
+            className="todo__title-field"
             placeholder="What needs to be done?"
             onChange={event => setEditTitle(event.target.value)}
             onBlur={() => {
