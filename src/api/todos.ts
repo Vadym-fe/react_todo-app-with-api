@@ -12,8 +12,8 @@ export const addTodo = (data: Omit<Todo, 'id'>) => {
 };
 
 export const updateTodoRename = (id: number, title: string) => {
-  return client.patch<Todo>(`/todos/${id}`, { id, title});
-}
+  return client.patch<Todo>(`/todos/${id}`, { id, title });
+};
 
 export const updateTodoToggle = (id: number, completed: boolean) => {
   return client.patch<Todo>(`/todos/${id}`, { id, completed });

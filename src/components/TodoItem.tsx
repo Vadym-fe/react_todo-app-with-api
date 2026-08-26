@@ -37,11 +37,13 @@ export const TodoItem: React.FC<Props> = ({
 
     if (newEditTitle === '') {
       somethingRef.current = false;
+
       return removeTodo(todo.id);
     }
 
     if (newEditTitle === todo.title) {
       somethingRef.current = false;
+
       return setIsEditing(false);
     }
 
@@ -111,7 +113,9 @@ export const TodoItem: React.FC<Props> = ({
             placeholder="What needs to be done?"
             onChange={event => setEditTitle(event.target.value)}
             onBlur={() => {
-              if (escapeRef.current) return;
+              if (escapeRef.current) {
+                return;
+              }
 
               handleEdit();
             }}

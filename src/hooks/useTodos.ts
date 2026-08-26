@@ -36,33 +36,33 @@ export const useTodos = () => {
       todos.length > 0 && todos.every(todo => todo.completed);
 
     const newStatusTodoCompleted = todos.filter(
-      todo => todo.completed === allCompletedCurrent,
+      todoStatus => todoStatus.completed === allCompletedCurrent,
     );
 
-    setLoadingTodo(newStatusTodoCompleted.map(todo => todo.id));
+    setLoadingTodo(newStatusTodoCompleted.map(item => item.id));
 
-    newStatusTodoCompleted.map(todo => {
-      updateTodoToggle(todo.id, !allCompletedCurrent)
+    newStatusTodoCompleted.forEach(todoItem => {
+      updateTodoToggle(todoItem.id, !allCompletedCurrent)
         .then(data => {
           setTodos(currentTodos =>
-            currentTodos.map(todo => {
-              if (todo.id === data.id) {
+            currentTodos.map(currentTodo => {
+              if (currentTodo.id === data.id) {
                 return data;
               }
 
-              return todo;
+              return currentTodo;
             }),
           );
 
           setLoadingTodo(currentTodosId =>
-            currentTodosId.filter(id => id !== todo.id),
+            currentTodosId.filter(id => id !== todoItem.id),
           );
         })
         .catch(() => {
           setError(ErrorMessage.Update);
 
           setLoadingTodo(currentTodosId =>
-            currentTodosId.filter(id => id !== todo.id),
+            currentTodosId.filter(id => id !== todoItem.id),
           );
         });
     });
@@ -115,7 +115,7 @@ export const useTodos = () => {
             }
 
             return todo;
-          })
+          });
         });
 
         setLoadingTodo(currentTodosId =>
@@ -209,12 +209,12 @@ export const useTodos = () => {
       })
       .filter((todo): todo is Todo => todo !== null);
 
+    const successfullyDeletedTodoIds = successfullyDeletedTodos.map(
+      todo => todo.id,
+    );
+
     setDeletingTodoId(currentIds =>
       currentIds.filter(id => {
-        const successfullyDeletedTodoIds = successfullyDeletedTodos.map(
-          todo => todo.id,
-        );
-
         return !successfullyDeletedTodoIds.includes(id);
       }),
     );
